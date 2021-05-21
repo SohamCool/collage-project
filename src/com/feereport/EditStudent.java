@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JSeparator;
@@ -40,6 +42,7 @@ public class EditStudent extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	String d;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -130,7 +133,18 @@ public class EditStudent extends JFrame {
 		textField_4.setColumns(10);
 		
 		textField_5 = new JTextField();
+		textField_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int fee=Integer.parseInt(textField_3.getText());
+				int paid=Integer.parseInt(textField_4.getText());
+				int due= fee-paid;
+				d= Integer.toString(due);
+				textField_5.setText(d);
+			}
+		});
 		textField_5.setColumns(10);
+		
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
@@ -145,6 +159,7 @@ public class EditStudent extends JFrame {
 		textField_9.setColumns(10);
 		
 		textArea = new JTextArea();
+	
 		
 		JButton btnBack = new JButton("back");
 		btnBack.addActionListener(new ActionListener() {
@@ -184,6 +199,7 @@ public class EditStudent extends JFrame {
 				}
 			}
 		});
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

@@ -60,27 +60,44 @@ public class AdminLogin extends JFrame {
 		
 		JLabel lblPassword = new JLabel("Password:");
 		
+		JLabel lval1 = new JLabel("");
+		
+		
 		textField = new JTextField();
 		textField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		
-		JButton btnLogin = new JButton("login");
+		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			String name=textField.getText();
 			char ch[]=passwordField.getPassword();
 			String password=String.valueOf(ch);
-			if(name.equals("admin")&&password.equals("admin123")){
+			if(name.trim().isEmpty() && passwordField.getText().trim().isEmpty()) {
+				lval1.setText("Sorry, Fields are Empty");
+			}
+			else if(name.trim().isEmpty()) {
+				lval1.setText("You left Name as Empty");
+			}
+			else if(passwordField.getText().trim().isEmpty()) {
+				lval1.setText("You left Password as Empty");
+			}
+			else if(name.equals("admin")&&password.equals("admin123")){
 				String s[]={};
 				AdminSection.main(s);
 				frame.dispose();
 			}else{
-				JOptionPane.showMessageDialog(AdminLogin.this,"Sorry, username or password error!");
+				JOptionPane.showMessageDialog(AdminLogin.this,"Sorry, username or password is incorrect!");
 				textField.setText("");passwordField.setText("");
 			}
 			}
 		});
+		
+		JLabel lblNewLabel = new JLabel("");
+		
+		
+		lval1.setForeground(Color.RED);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -95,13 +112,15 @@ public class AdminLogin extends JFrame {
 								.addComponent(lblName)
 								.addComponent(lblPassword))
 							.addGap(58)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(passwordField)
-								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+								.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lval1, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(177)
 							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(111, Short.MAX_VALUE))
+					.addGap(89))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -113,11 +132,15 @@ public class AdminLogin extends JFrame {
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(27)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPassword))
-					.addGap(36)
+						.addComponent(lblPassword)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(7)
+					.addComponent(lval1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel)
+					.addGap(17)
 					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(51, Short.MAX_VALUE))
+					.addContainerGap(50, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
